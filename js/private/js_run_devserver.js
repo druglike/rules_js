@@ -83,11 +83,12 @@ async function syncRecursive(src, dst) {
                 )
             }
             if (exists) {
-                await fs.promises.unlink(dst)
+                // await fs.promises.unlink(dst)
             } else {
                 mkdirpSync(path.dirname(dst))
             }
             await fs.promises.copyFile(src, dst)
+            await fs.promises.chmod(dst, 0o777)
             return 1
         }
     } catch (e) {
